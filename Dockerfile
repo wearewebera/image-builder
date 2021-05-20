@@ -1,14 +1,10 @@
-FROM "gcr.io/webera/base" AS base
+FROM "gcr.io/webera/essentials" AS base
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV RELEASE_VERSION v0.17.0
 ENV PATH /usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/root/bin:/root/bin/google-cloud-sdk/bin
 
 WORKDIR /root
-
-ADD https://raw.githubusercontent.com/wearewebera/tools/main/essentials.sh .
-RUN bash essentials.sh \
-  && rm essentials.sh
 
 RUN apt-get update \
   && apt-get install -y \
