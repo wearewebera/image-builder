@@ -10,7 +10,8 @@ ADD https://raw.githubusercontent.com/wearewebera/tools/main/essentials.sh .
 RUN bash essentials.sh \
   && rm essentials.sh
 
-RUN apt-get install -y \
+RUN apt-get update \
+  && apt-get install -y \
     build-essential \
     git \
     mysql-client \
