@@ -2,6 +2,7 @@ FROM "gcr.io/webera/essentials" AS base
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV RELEASE_VERSION v0.17.0
+ENV NODE_VERSION 15.x
 ENV PATH /usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/root/bin:/root/bin/google-cloud-sdk/bin
 
 WORKDIR /root
@@ -27,9 +28,12 @@ RUN apt-get update \
     php-xml \
     php-intl \
     php-cli \
-    nodejs \
     npm \
+  && npm cache clean -f \
   && npm install -g npm yarn \
+  && curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
+  && apt update \
+  && apt-get install -y nodejs \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
