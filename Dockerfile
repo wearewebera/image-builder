@@ -2,7 +2,7 @@ FROM "gcr.io/webera/essentials" AS base
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV RELEASE_VERSION v0.17.0
-ENV NODE_VERSION 15.x
+ENV NODE_VERSION 16.x
 ENV PATH /usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/root/bin:/root/bin/google-cloud-sdk/bin
 
 WORKDIR /root
