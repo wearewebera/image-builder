@@ -1,42 +1,49 @@
-FROM "gcr.io/webera/essentials" AS base
+FROM "gcr.io/huntingmill/common/base" AS base
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV RELEASE_VERSION v0.17.0
-ENV NODE_VERSION 16.x
 ENV PATH /usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/root/bin:/root/bin/google-cloud-sdk/bin
 
 WORKDIR /root
 
 RUN apt-get update \
   && apt-get install -y \
-    build-essential \
-    git \
-    mysql-client \
-    php-fpm \
-    php-common \
-    php-mysql \
-    php-xmlrpc \
-    php-curl \
-    php-gd \
-    php-imagick \
-    php-dev \
-    php-imap \
-    php-mbstring \
-    php-soap \
-    php-zip \
-    php-bcmath \
-    php-xml \
-    php-intl \
-    php-cli \
-    npm \
-  && npm cache clean -f \
+  build-essential \
+  git \
+  uuid \
+  gettext-base \
+  mysql-client \
+  php-fpm \
+  php-common \
+  php-mysql \
+  php-xmlrpc \
+  php-curl \
+  php-gd \
+  php-imagick \
+  php-dev \
+  php-imap \
+  php-mbstring \
+  php-soap \
+  php-zip \
+  php-bcmath \
+  php-xml \
+  php-intl \
+  php-cli \
+  nodejs \
+  npm \
   && npm install -g npm yarn \
-  && curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
-  && apt update \
-  && apt-get install -y nodejs \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ADD https://raw.githubusercontent.com/wearewebera/tools/main/essentials.sh .
+RUN bash essentials.sh \
+  && rm essentials.sh
+
+# Install python requirements
+COPY requirements.txt .
+
+RUN pip install -r requirements.txt
 
 # operator-sdk
 RUN curl -OJL https://github.com/operator-framework/operator-sdk/releases/download/${RELEASE_VERSION}/operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu \
