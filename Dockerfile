@@ -10,6 +10,7 @@ RUN apt-get update \
   build-essential \
   git \
   uuid \
+  software-properties-common \
   gettext-base \
   mysql-client \
   php-fpm \
@@ -31,6 +32,8 @@ RUN apt-get update \
   nodejs \
   npm \
   && npm install -g npm yarn \
+  && add-apt-repository ppa:deadsnakes/ppa \
+  && apt install python3.10 -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
