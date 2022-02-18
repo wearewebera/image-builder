@@ -9,7 +9,7 @@ steps:
     - --tag=${_REGISTRY_NAME}/${_IMAGE_NAME}:latest
     - --tag=${_REGISTRY_NAME}/${_IMAGE_NAME}:$SHORT_SHA
     - .
-  timeout: 600s
+  timeout: 1000s
 images:
   - ${_REGISTRY_NAME}/${_IMAGE_NAME}:latest
   - ${_REGISTRY_NAME}/${_IMAGE_NAME}:$SHORT_SHA
