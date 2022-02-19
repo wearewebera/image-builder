@@ -1,4 +1,4 @@
-FROM gcr.io/webera/base
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH /usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/root/bin:/root/bin/google-cloud-sdk/bin
@@ -29,11 +29,10 @@ RUN apt-get update \
   php-xml \
   php-intl \
   php-cli \
+  python3.10 \
   nodejs \
   npm \
-  && npm install -g npm yarn \
-  && add-apt-repository ppa:deadsnakes/ppa \
-  && apt install python3.10 -y \
+  && npm install -g npm yarn \    
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
