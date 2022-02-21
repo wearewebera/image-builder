@@ -1,7 +1,8 @@
-FROM gcr.io/webera/base
+FROM ubuntu:23.04
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH /usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/root/bin:/root/bin/google-cloud-sdk/bin
+ENV PYTHON_VERSION=3.10
 
 WORKDIR /root
 
@@ -28,12 +29,10 @@ RUN apt-get update \
   php-bcmath \
   php-xml \
   php-intl \
-  php-cli \
+  php-cli \  
   nodejs \
   npm \
-  && npm install -g npm yarn \
-  && add-apt-repository ppa:deadsnakes/ppa \
-  && apt install python3.10 -y \
+  && npm install -g npm yarn \    
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
