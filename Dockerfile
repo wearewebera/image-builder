@@ -37,14 +37,9 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install python requirements
-COPY requirements.txt .
-
 ADD https://raw.githubusercontent.com/wearewebera/tools/main/essentials.sh .
 RUN bash essentials.sh \
-  && rm essentials.sh \
-  && pip install -r requirements.txt \
-  && rm requirements.txt
+  && rm essentials.sh 
 
 # PHP Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -53,3 +48,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
   && chmod +x wp-cli.phar \
   && mv wp-cli.phar /usr/local/bin/wp
+
+# Install python requirements
+#COPY requirements.txt .
+#RUN  pip install -r requirements.txt
