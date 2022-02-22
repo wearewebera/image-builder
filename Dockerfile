@@ -37,14 +37,14 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD https://raw.githubusercontent.com/wearewebera/tools/main/essentials.sh .
-RUN bash essentials.sh \
-  && rm essentials.sh
-
 # Install python requirements
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt
+ADD https://raw.githubusercontent.com/wearewebera/tools/main/essentials.sh .
+RUN bash essentials.sh \
+  && rm essentials.sh \
+  && pip install -r requirements.txt \
+  && rm requirements.txt
 
 # PHP Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
