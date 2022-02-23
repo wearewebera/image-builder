@@ -50,5 +50,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
   && mv wp-cli.phar /usr/local/bin/wp
 
 # Install python requirements
-COPY requirements.txt .
+COPY requirements.txt entrypoint.sh .
+
 RUN  bash -c "source .venv/bin/activate && pip install -r requirements.txt"
+
+ENTRYPOINT ["bash", "-i", "entrypoint.sh"]
